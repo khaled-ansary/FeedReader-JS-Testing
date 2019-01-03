@@ -15,7 +15,7 @@ or clone the project `git clone https://github.com/khaled-ansary/FeedReader-JS-T
 2. Open the index.html file
 
 ## Live Version
-You can find a live version of the project [here](https://khaled-ansary.github.io/Restaurant-Review-js/)
+You can find a live version of the project [here](https://khaled-ansary.github.io/FeedReader-JS-Testing/)
 
 ## Screenshot
 
