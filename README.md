@@ -24,7 +24,7 @@ You can find a live version of the project [here](https://khaled-ansary.github.i
 ## Dependencies
 
 * [Jasmine](https://jasmine.github.io/)
-* 
+
 ### License
 
 The MIT License

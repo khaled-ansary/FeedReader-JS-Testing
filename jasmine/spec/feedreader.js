@@ -25,11 +25,10 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-        it("has a URL defined, not empty and validate the URL ", function() {
+        it("Test URL defined and not empty ", function() {
             allFeeds.forEach(function(feed) {
               expect(feed.url).toBeDefined();
               expect(feed.url.length).not.toBe(0);
-              expect(feed.url).toMatch(/^(http|https):\/\//);
             });
         });
 
@@ -38,10 +37,10 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-        it('has name defined and they are not empty', function() {
+        it('Name defined and not empty', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
-                expect(feed.name.length).not.toBe(0);
+                expect(feed.name.length).toBeGreaterThan(0);
             });
         });
     });
@@ -52,14 +51,14 @@ $(function() {
 
         // declare variable to use body and menu-icon-link
         const body = document.body;
-        const menuIcon = document.querySelector(".menu-icon-link");
+        const menuButton = document.querySelector(".menu-icon-link");
         /* The test ensures that the menu element is
          * hidden by default. It analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
         it("body has initially hidden'", function() {
-            expect(body.className).toContain("menu-hidden");
+            expect(body.classList.contains("menu-hidden")).toBe(true);
         });
 
          /* The test ensures the menu changes
@@ -67,12 +66,12 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-         it("body toggles the class 'menu-hidden' on clicking menu icon", function() {
-            menuIcon.click();
-            expect(body.className).not.toContain("menu-hidden");
+         it("should display the menu when click the menu icon and hide it when click again", function() {
+            menuButton.click();
+            expect(body.classList.contains("menu-hidden")).toBe(false);
       
-            menuIcon.click();
-            expect(body.className).toContain("menu-hidden");
+            menuButton.click();
+            expect(body.classList.contains("menu-hidden")).toBe(true);
           });
     });    
     /* a new test suite named "Initial Entries" */
@@ -86,11 +85,13 @@ $(function() {
          */
 
         beforeEach(function(done) {
-            loadFeed(0, done);
+            loadFeed(0, function() {
+                done();
+            });
         });
 
-        it('are present', function() {
-            expect(document.querySelector(".feed").getElementsByClassName("entry").length).toBeGreaterThan(0);
+        it("contain at least one feed", function() {
+            expect(document.querySelectorAll(".entry").length).toBeGreaterThan(0);
         });
     });    
     /* a new test suite named "New Feed Selection" */
@@ -101,19 +102,20 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
           */
         let initFeed; 
+        let newFeed;
         beforeEach(function(done) {
             loadFeed(0, function() {
                 initFeed = document.querySelector(".feed").innerHTML;
-                loadFeed(1, function() {
-                    done();
-                });
+                done();
             });
         });
 
-        it("changes its loaded content", function(done) {         
-            const newFeed = document.querySelector(".feed").innerHTML;
-            expect(initFeed).not.toBe(newFeed);
-            done();
+        it("change the feed content", function(done) { 
+            loadFeed(1, function() {        
+                newFeed = document.querySelector(".feed").innerHTML;
+                expect(initFeed).not.toBe(newFeed);
+                done();
+            });
         });
     });
 }());
