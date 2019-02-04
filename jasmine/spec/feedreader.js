@@ -85,13 +85,11 @@ $(function() {
          */
 
         beforeEach(function(done) {
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
 
         it("contain at least one feed", function() {
-            expect(document.querySelectorAll(".entry").length).toBeGreaterThan(0);
+            expect(document.querySelectorAll(".feed .entry").length).toBeGreaterThan(0);
         });
     });    
     /* a new test suite named "New Feed Selection" */
